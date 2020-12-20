@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
+  <process id="purchase" name="采购流程" isExecutable="true">
+    <startEvent id="startEvent1" name="发起采购"></startEvent>
+    <userTask id="sid-BC187DF1-5284-43D2-90C8-9C70F397634A" name="采购管理员" flowable:assignee="${manager}">
+      <multiInstanceLoopCharacteristics isSequential="true" flowable:collection="purchaseManagers" flowable:elementVariable="manager">
+        <completionCondition>${nrOfCompletedInstances==nrOfInstances}</completionCondition>
+      </multiInstanceLoopCharacteristics>
+    </userTask>
+    <sequenceFlow sourceRef="startEvent1" targetRef="sid-BC187DF1-5284-43D2-90C8-9C70F397634A"></sequenceFlow>
+    <serviceTask id="sid-7A0F9F4B-9BBD-4F1A-AA12-2818BB20B2E6" name="采购审批通过" flowable:class="org.flowable.PurchasePassDelegate"></serviceTask>
+    <sequenceFlow id="sid-DB1B93F7-7FF2-4A41-BD6F-394FFE4233D5" sourceRef="sid-BC187DF1-5284-43D2-90C8-9C70F397634A" targetRef="sid-7A0F9F4B-9BBD-4F1A-AA12-2818BB20B2E6">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${approved}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="sid-97D6D6DE-12B7-424F-9F71-5E6DC8CBECFD"></endEvent>
+    <sequenceFlow id="sid-CB47F96D-2402-41E4-AA6A-4C43A679F2DB" sourceRef="sid-7A0F9F4B-9BBD-4F1A-AA12-2818BB20B2E6" targetRef="sid-97D6D6DE-12B7-424F-9F71-5E6DC8CBECFD"></sequenceFlow>
+  </process>
+</definitions>
