@@ -1,6 +1,8 @@
 package com.moda;
 
+import com.moda.decorator.BoilingCup;
 import com.moda.decorator.Cup;
+import com.moda.decorator.CupDecorator;
 import com.moda.decorator.KeepWarmDecorator;
 
 /**
@@ -12,6 +14,9 @@ public class App
     public static void main( String[] args ) {
         KeepWarmDecorator keepWarmDecorator = new KeepWarmDecorator(new Cup());
         keepWarmDecorator.fillWater();
+
+        BoilingCup boilingCup = new BoilingCup(keepWarmDecorator);
+        boilingCup.fillWater();
 
     }
 }
