@@ -12,6 +12,7 @@
         <module>design-demo</module>
         <module>thread-demo</module>
         <module>flowable-demo</module>
+        <module>kafka-demo</module>
     </modules>
 
 
